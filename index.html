@@ -3,7 +3,7 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<title>Benim Güzeller Güzeli Prensesime</title>
+<title>İyi ki Doğdun ❤️</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:ital@1&display=swap" rel="stylesheet">
 
@@ -53,6 +53,15 @@ body::before {
   transform: scale(1.08);
 }
 
+button {
+  margin-top: 20px;
+  padding: 12px 20px;
+  border-radius: 25px;
+  border: none;
+  cursor: pointer;
+}
+
+/* LIGHTBOX */
 #lightbox {
   position: fixed;
   inset: 0;
@@ -66,6 +75,23 @@ body::before {
   max-width: 90%;
   max-height: 90%;
 }
+
+/* VIDEO OVERLAY */
+#videoOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.95);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+#videoOverlay video {
+  width: 90%;
+  max-width: 900px;
+  border-radius: 20px;
+}
 </style>
 
 </head>
@@ -74,10 +100,12 @@ body::before {
 
 <div class="container">
 
-<h1>İyi ki Doğdun Sevgilim ❤️</h1>
+<h1>İyi ki Doğdun ❤️</h1>
 
 <div class="message">
-Benim güzel kızım, sevgilim, herşeyim.. Olabildiğince, yapabildiğimce; sana, bize özel bir an bırakmak istedim. Sonsuza kadar açık kalacak istediğimiz zaman, ilerde, bakabileceğimiz bir an bırakmak istedim. Doğum günün kutlu olsun birtanem seni herşeyden çok seviyorum. İyi ki doğdun iyi ki girdin hayatıma. 18'inci doğum günün kutlu olsun birtanem. Bu yaşın sana en başında sağlık sonrasında akademik başarı getirsin. Bunla birlikte hayatın hep mutlulukla ve bir ömür benimle geçsin:) Daha yazmak istediğim, kendimi anlatmak istediğim o kadar çok şey var ki. Bir türlü kelimelere dökemiyorum. Her şey gönlünce olsun sevgilim. İlerde çok başarılı çok mutlu olman dileğiyle seni çok seviyorum <3
+Benim güzel kızım, sevgilim, her şeyim...  
+Bu siteyi sana küçük bir anı bırakmak için yaptım.  
+Seni her şeyden çok seviyorum 💖
 </div>
 
 <div class="gallery">
@@ -93,18 +121,32 @@ Benim güzel kızım, sevgilim, herşeyim.. Olabildiğince, yapabildiğimce; san
   <img src="foto10.jpg" onclick="openImage(this.src)">
 </div>
 
+<button onclick="playVideo()">Sana küçük bir sürprizim var 🎬</button>
+
+<!-- MÜZİK -->
+
 <audio id="music" autoplay loop>
   <source src="sarki.mp3" type="audio/mpeg">
 </audio>
 
 </div>
 
+<!-- LIGHTBOX -->
+
 <div id="lightbox" onclick="closeImage()">
   <img id="lightbox-img">
 </div>
 
+<!-- VIDEO OVERLAY -->
+
+<div id="videoOverlay" onclick="closeVideo()">
+  <video id="myVideo" controls>
+    <source src="video.mp4" type="video/mp4">
+  </video>
+</div>
+
 <script>
-// lightbox
+// FOTO BÜYÜTME
 function openImage(src) {
   document.getElementById("lightbox").style.display = "flex";
   document.getElementById("lightbox-img").src = src;
@@ -114,7 +156,30 @@ function closeImage() {
   document.getElementById("lightbox").style.display = "none";
 }
 
-// müzik başlatma (tarayıcı fix)
+// VIDEO + SİNEMATİK
+function playVideo() {
+  const video = document.getElementById("myVideo");
+  const overlay = document.getElementById("videoOverlay");
+  const music = document.getElementById("music");
+
+  if (music) {
+    music.pause();
+    music.currentTime = 0;
+  }
+
+  overlay.style.display = "flex";
+
+  video.muted = false;
+  video.play();
+}
+
+function closeVideo() {
+  const video = document.getElementById("myVideo");
+  video.pause();
+  document.getElementById("videoOverlay").style.display = "none";
+}
+
+// MÜZİK TARAYICI FIX
 window.addEventListener("click", () => {
   document.getElementById("music").play();
 });
