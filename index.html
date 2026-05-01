@@ -3,7 +3,7 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<title>Benim Güzeller Güzeli Prensesime </title>
+<title>Benim Güzeller Güzeli Prensesime</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:ital@1&display=swap" rel="stylesheet">
 
@@ -17,7 +17,6 @@ body {
   color: white;
 }
 
-/* karartma */
 body::before {
   content: "";
   position: fixed;
@@ -26,7 +25,6 @@ body::before {
   z-index: -1;
 }
 
-/* cam efekt */
 .container {
   max-width: 900px;
   margin: 40px auto;
@@ -38,40 +36,23 @@ body::before {
   text-align: center;
 }
 
-h1 {
-  font-size: 42px;
-}
-
-.message {
-  font-size: 18px;
-  line-height: 1.7;
-}
-
-.counter {
-  margin: 20px 0;
-  font-size: 20px;
-}
-
-/* galeri */
 .gallery {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: 15px;
-  margin-top: 20px;
 }
 
 .gallery img {
   width: 100%;
   border-radius: 15px;
-  transition: 0.4s;
   cursor: pointer;
+  transition: 0.3s;
 }
 
 .gallery img:hover {
   transform: scale(1.08);
 }
 
-/* lightbox */
 #lightbox {
   position: fixed;
   inset: 0;
@@ -84,7 +65,6 @@ h1 {
 #lightbox img {
   max-width: 90%;
   max-height: 90%;
-  border-radius: 20px;
 }
 </style>
 
@@ -94,26 +74,11 @@ h1 {
 
 <div class="container">
 
-<h1>İyi ki Doğdun Sevgilim </h1>
+<h1>İyi ki Doğdun Sevgilim ❤️</h1>
 
 <div class="message">
-Benim güzel kızım, sevgilim, herşeyim..
-Olabildiğince, yapabildiğimce; sana, bize özel bir
-an bırakmak istedim. Sonsuza kadar açık kalacak istediğimiz zaman, ilerde,
-bakabileceğimiz bir an bırakmak istedim. Doğum günün kutlu olsun birtanem
-seni herşeyden çok seviyorum. İyi ki doğdun iyi ki girdin hayatıma.
-Aramızın çoğu zaman bozuk olduğunun farkındayım. Fakat ne kadar kötü
-olursa olsun ikimizin de bunun üstünden geleceğimizi biliyorum. Bir birimize
-söz vermiştik. Ne olursa olsun kötü bir şekilde kalmayacağız, böyle güzel
-günlerde hep beraber olacağız. 18'inci doğum günün kutlu olsun birtanem.
-Bu yaşın sana en başında sağlık sonrasında akademik başarı getirsin.
-Bunla birlikte hayatın hep mutlulukla ve bir ömür benimle geçsin:)
-Seni her şeyden çok seviyorum. Tekrardan doğum günün kutlu olsun iyi ki varsın
-birtanem <3
-
+Benim güzel kızım, sevgilim, herşeyim.. Olabildiğince, yapabildiğimce; sana, bize özel bir an bırakmak istedim. Sonsuza kadar açık kalacak istediğimiz zaman, ilerde, bakabileceğimiz bir an bırakmak istedim. Doğum günün kutlu olsun birtanem seni herşeyden çok seviyorum. İyi ki doğdun iyi ki girdin hayatıma. Aramızın çoğu zaman bozuk olduğunun farkındayım. Fakat ne kadar kötü olursa olsun ikimizin de bunun üstünden geleceğimizi biliyorum. Bir birimize söz vermiştik. Ne olursa olsun kötü bir şekilde kalmayacağız, böyle güzel günlerde hep beraber olacağız. 18'inci doğum günün kutlu olsun birtanem. Bu yaşın sana en başında sağlık sonrasında akademik başarı getirsin. Bunla birlikte hayatın hep mutlulukla ve bir ömür benimle geçsin:) Seni her şeyden çok seviyorum. Tekrardan doğum günün kutlu olsun iyi ki varsın birtanem <3
 </div>
-
-<div class="counter" id="counter"></div>
 
 <div class="gallery">
   <img src="foto1.jpg" onclick="openImage(this.src)">
@@ -128,27 +93,17 @@ birtanem <3
   <img src="foto10.jpg" onclick="openImage(this.src)">
 </div>
 
-<!-- MÜZİK (OTOMATİK) -->
-
 <audio id="music" autoplay loop>
   <source src="sarki.mp3" type="audio/mpeg">
 </audio>
 
 </div>
 
-<!-- lightbox -->
-
 <div id="lightbox" onclick="closeImage()">
   <img id="lightbox-img">
 </div>
 
 <script>
-// gün sayacı
-const startDate = new Date("2024-05-11");
-const today = new Date();
-const days = Math.floor((today - startDate) / (1000*60*60*24));
-
-
 // lightbox
 function openImage(src) {
   document.getElementById("lightbox").style.display = "flex";
@@ -159,7 +114,7 @@ function closeImage() {
   document.getElementById("lightbox").style.display = "none";
 }
 
-// bazı tarayıcılar için garanti başlatma
+// müzik başlatma (tarayıcı fix)
 window.addEventListener("click", () => {
   document.getElementById("music").play();
 });
