@@ -3,7 +3,7 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<title>text1 </title>
+<title>text </title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:ital@1&display=swap" rel="stylesheet">
 
@@ -12,28 +12,49 @@ body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
   font-style: italic;
-  background: url('arka.jpg') no-repeat center center fixed;
-  background-size: cover;
+  background: linear-gradient(135deg, #ff6b81, #ff9a9e, #ffd1dc);
   color: white;
 }
 
+/* glow */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.5);
+  background: radial-gradient(circle at top, rgba(255,255,255,0.3), transparent 70%);
   z-index: -1;
 }
 
+/* animasyon */
 .container {
   max-width: 900px;
   margin: 40px auto;
   padding: 30px;
   border-radius: 25px;
-  background: rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.15);
   backdrop-filter: blur(15px);
   box-shadow: 0 8px 30px rgba(0,0,0,0.3);
   text-align: center;
+
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeIn 1.5s ease forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+h1 {
+  font-size: 40px;
+}
+
+.message {
+  font-size: 18px;
+  margin-bottom: 20px;
 }
 
 .gallery {
@@ -59,9 +80,17 @@ button {
   border-radius: 25px;
   border: none;
   cursor: pointer;
+  background: white;
+  color: #ff4d6d;
+  font-weight: bold;
+  transition: 0.3s;
 }
 
-/* LIGHTBOX */
+button:hover {
+  transform: scale(1.05);
+}
+
+/* lightbox */
 #lightbox {
   position: fixed;
   inset: 0;
@@ -74,9 +103,10 @@ button {
 #lightbox img {
   max-width: 90%;
   max-height: 90%;
+  border-radius: 20px;
 }
 
-/* VIDEO OVERLAY */
+/* video overlay */
 #videoOverlay {
   position: fixed;
   inset: 0;
@@ -103,7 +133,7 @@ button {
 <h1>text </h1>
 
 <div class="message">
-text2
+text
 
 </div>
 
@@ -122,21 +152,15 @@ text2
 
 <button onclick="playVideo()">Sana küçük bir sürprizim var 🎬</button>
 
-<!-- MÜZİK -->
-
 <audio id="music" autoplay loop>
   <source src="sarki.mp3" type="audio/mpeg">
 </audio>
 
 </div>
 
-<!-- LIGHTBOX -->
-
 <div id="lightbox" onclick="closeImage()">
   <img id="lightbox-img">
 </div>
-
-<!-- VIDEO OVERLAY -->
 
 <div id="videoOverlay" onclick="closeVideo()">
   <video id="myVideo" controls>
@@ -145,7 +169,6 @@ text2
 </div>
 
 <script>
-// FOTO BÜYÜTME
 function openImage(src) {
   document.getElementById("lightbox").style.display = "flex";
   document.getElementById("lightbox-img").src = src;
@@ -155,7 +178,6 @@ function closeImage() {
   document.getElementById("lightbox").style.display = "none";
 }
 
-// VIDEO + SİNEMATİK
 function playVideo() {
   const video = document.getElementById("myVideo");
   const overlay = document.getElementById("videoOverlay");
@@ -167,7 +189,6 @@ function playVideo() {
   }
 
   overlay.style.display = "flex";
-
   video.muted = false;
   video.play();
 }
@@ -178,7 +199,6 @@ function closeVideo() {
   document.getElementById("videoOverlay").style.display = "none";
 }
 
-// MÜZİK TARAYICI FIX
 window.addEventListener("click", () => {
   document.getElementById("music").play();
 });
