@@ -3,134 +3,79 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>İyi ki Doğdun ❤️</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:ital@1&display=swap" rel="stylesheet">
-
-<!-- PWA -->
 
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#ff6b81">
 <link rel="apple-touch-icon" href="icon.png">
 
 <style>
-html {
-  scroll-behavior: smooth;
-  -webkit-tap-highlight-color: transparent;
-}
-
 body {
-  margin: 0;
-  font-family: 'Poppins', sans-serif;
-  color: white;
-  background: linear-gradient(135deg, #1e1e2f, #2c2c54, #ff6b81);
-  display: flex;
-  justify-content: center;
-  overflow-x: hidden;
-}
-
-/* glow */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background: radial-gradient(circle at top, rgba(255,255,255,0.08), transparent 60%);
-  z-index: -1;
+  margin:0;
+  font-family:'Poppins',sans-serif;
+  color:white;
+  background:linear-gradient(135deg,#1e1e2f,#2c2c54,#ff6b81);
+  display:flex;
+  justify-content:center;
 }
 
 /* SPLASH */
 #splash {
-  position: fixed;
-  inset: 0;
-  background: linear-gradient(135deg, #1e1e2f, #2c2c54, #ff6b81);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
+  position:fixed;
+  inset:0;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:#1e1e2f;
+  z-index:9999;
+  text-align:center;
+  padding:20px;
 }
 
 #splashText {
-  font-size: 20px;
-  text-align: center;
-  padding: 20px;
-  max-width: 300px;
-  line-height: 1.6;
-  opacity: 0;
-  animation: fadeIn 1s forwards;
+  font-size:20px;
 }
 
-/* container */
+/* CONTAINER */
 .container {
-  width: 100%;
-  max-width: 420px;
-  margin: 15px;
-  padding: 20px;
-  border-radius: 25px;
-  background: rgba(255,255,255,0.12);
-  backdrop-filter: blur(15px);
-  text-align: center;
-
-  opacity: 0;
-  transform: translateY(30px);
-  animation: fadeIn 1.2s ease forwards;
+  max-width:420px;
+  margin:20px;
+  padding:20px;
+  border-radius:20px;
+  background:rgba(255,255,255,0.1);
+  text-align:center;
 }
 
-@keyframes fadeIn {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
+/* GALERİ */
 .gallery {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
 }
 
 .gallery img {
-  width: 100%;
-  aspect-ratio: 1/1;
-  object-fit: cover;
-  border-radius: 12px;
-  cursor: pointer;
+  width:100%;
+  aspect-ratio:1/1;
+  object-fit:cover;
+  border-radius:10px;
+  cursor:pointer;
 }
 
-.gallery img:active {
-  transform: scale(0.95);
-}
-
-/* lightbox */
+/* LIGHTBOX */
 #lightbox {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.95);
-  display: none;
-  justify-content: center;
-  align-items: center;
+  position:fixed;
+  inset:0;
+  background:black;
+  display:none;
+  justify-content:center;
+  align-items:center;
 }
 
 #lightbox img {
-  max-width: 90%;
-  max-height: 90%;
-  border-radius: 15px;
-}
-
-/* kalpler */
-.heart {
-  position: fixed;
-  bottom: -20px;
-  color: #ff6b81;
-  font-size: 14px;
-  animation: floatUp linear infinite;
-}
-
-@keyframes floatUp {
-  to {
-    transform: translateY(-110vh);
-    opacity: 0;
-  }
+  width:90%;
 }
 </style>
 
@@ -145,83 +90,93 @@ body::before {
 </div>
 
 <div class="container">
-
 <h1>İyi ki Doğdun ❤️</h1>
 
-<p>text </p>
+<p>Benim güzel kızım... Seni çok seviyorum 💖</p>
 
 <div class="gallery">
-  <img src="foto1.jpg" onclick="openImage(this.src)">
-  <img src="foto2.jpg" onclick="openImage(this.src)">
-  <img src="foto3.jpg" onclick="openImage(this.src)">
-  <img src="foto4.jpg" onclick="openImage(this.src)">
-  <img src="foto5.jpg" onclick="openImage(this.src)">
-  <img src="foto6.jpg" onclick="openImage(this.src)">
-  <img src="foto7.jpg" onclick="openImage(this.src)">
-  <img src="foto8.jpg" onclick="openImage(this.src)">
-  <img src="foto9.jpg" onclick="openImage(this.src)">
-  <img src="foto10.jpg" onclick="openImage(this.src)">
+<img src="foto1.jpg" onclick="openImage(this.src)">
+<img src="foto2.jpg" onclick="openImage(this.src)">
+<img src="foto3.jpg" onclick="openImage(this.src)">
+<img src="foto4.jpg" onclick="openImage(this.src)">
+<img src="foto5.jpg" onclick="openImage(this.src)">
+<img src="foto6.jpg" onclick="openImage(this.src)">
+<img src="foto7.jpg" onclick="openImage(this.src)">
+<img src="foto8.jpg" onclick="openImage(this.src)">
+<img src="foto9.jpg" onclick="openImage(this.src)">
+<img src="foto10.jpg" onclick="openImage(this.src)">
 </div>
 
-<audio id="music" autoplay loop>
-  <source src="sarki.mp3" type="audio/mpeg">
+<audio id="music" loop>
+  <source src="sarki.mp3">
 </audio>
-
 </div>
+
+<!-- LIGHTBOX -->
 
 <div id="lightbox" onclick="closeImage()">
-  <img id="lightbox-img">
+<img id="lightbox-img">
 </div>
 
 <script>
-// ✍️ BURAYI DEĞİŞTİR
-const text = "text";
-
-// splash yazı
+// ✍️ YAZI
+const text = "Hazır mısın... Bu sana özel ❤️";
 let i = 0;
+let started = false;
+
 function typeWriter() {
   if (i < text.length) {
     document.getElementById("splashText").innerHTML += text.charAt(i);
     i++;
     setTimeout(typeWriter, 50);
-  } else {
-    setTimeout(() => {
-      document.getElementById("splash").style.display = "none";
-    }, 1500);
   }
 }
 window.onload = typeWriter;
+
+// 🚀 BAŞLAT
+function startExperience() {
+  if (started) return;
+  started = true;
+
+  // titreşim
+  if (navigator.vibrate) {
+    navigator.vibrate([100,50,100]);
+  }
+
+  const music = document.getElementById("music");
+  music.volume = 0;
+  music.play();
+
+  // fade-in
+  let vol = 0;
+  const fade = setInterval(() => {
+    if (vol < 1) {
+      vol += 0.05;
+      music.volume = vol;
+    } else {
+      clearInterval(fade);
+    }
+  }, 200);
+
+  // splash kapat
+  setTimeout(() => {
+    document.getElementById("splash").style.display = "none";
+  }, 1500);
+}
+
+// dokununca başlat
+document.getElementById("splash").addEventListener("click", startExperience);
 
 // foto
 function openImage(src) {
   document.getElementById("lightbox").style.display = "flex";
   document.getElementById("lightbox-img").src = src;
 }
-
 function closeImage() {
   document.getElementById("lightbox").style.display = "none";
 }
 
-// müzik fix
-document.addEventListener("click", () => {
-  document.getElementById("music").play();
-});
-
-// kalpler
-setInterval(() => {
-  const heart = document.createElement("div");
-  heart.className = "heart";
-  heart.innerText = "❤️";
-
-  heart.style.left = Math.random() * 100 + "vw";
-  heart.style.animationDuration = (Math.random() * 2 + 3) + "s";
-
-  document.body.appendChild(heart);
-
-  setTimeout(() => heart.remove(), 5000);
-}, 500);
-
-// SERVICE WORKER (uygulama hissi)
+// service worker
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('sw.js');
 }
