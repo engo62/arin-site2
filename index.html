@@ -3,20 +3,21 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>İyi ki Doğdun ❤️</title>
 
-<!-- FONT -->
-
 <link href="https://fonts.googleapis.com/css2?family=Poppins:ital@1&display=swap" rel="stylesheet">
-
-<!-- PWA -->
 
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#ff6b81">
 <link rel="apple-touch-icon" href="icon.png">
 
 <style>
+html {
+  scroll-behavior: smooth;
+  -webkit-tap-highlight-color: transparent;
+}
+
 body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
@@ -37,11 +38,32 @@ body::before {
   z-index: -1;
 }
 
-/* container (telefon görünümü) */
+/* SPLASH */
+#splash {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(135deg, #1e1e2f, #2c2c54, #ff6b81);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+#splashText {
+  font-size: 20px;
+  text-align: center;
+  padding: 20px;
+  max-width: 300px;
+  line-height: 1.6;
+  opacity: 0;
+  animation: fadeIn 1s forwards;
+}
+
+/* container */
 .container {
   width: 100%;
   max-width: 420px;
-  margin: 20px;
+  margin: 15px;
   padding: 20px;
   border-radius: 25px;
   background: rgba(255,255,255,0.12);
@@ -50,7 +72,7 @@ body::before {
 
   opacity: 0;
   transform: translateY(30px);
-  animation: fadeIn 1.5s ease forwards;
+  animation: fadeIn 1.2s ease forwards;
 }
 
 @keyframes fadeIn {
@@ -61,7 +83,7 @@ body::before {
 }
 
 h1 {
-  font-size: 26px;
+  font-size: 24px;
 }
 
 .message {
@@ -82,13 +104,18 @@ h1 {
   object-fit: cover;
   border-radius: 12px;
   cursor: pointer;
+  transition: 0.2s;
+}
+
+.gallery img:active {
+  transform: scale(0.95);
 }
 
 /* LIGHTBOX */
 #lightbox {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.9);
+  background: rgba(0,0,0,0.95);
   display: none;
   justify-content: center;
   align-items: center;
@@ -105,7 +132,7 @@ h1 {
   position: fixed;
   bottom: -20px;
   color: #ff6b81;
-  font-size: 16px;
+  font-size: 14px;
   animation: floatUp linear infinite;
 }
 
@@ -121,13 +148,18 @@ h1 {
 
 <body>
 
+<!-- SPLASH SCREEN -->
+
+<div id="splash">
+  <div id="splashText"></div>
+</div>
+
 <div class="container">
 
 <h1>İyi ki Doğdun ❤️</h1>
 
 <div class="message">
-Benim güzel kızım, sevgilim...  
-Bu siteyi sana küçük bir anı bırakmak için yaptım.  
+Benim güzel kızım...  
 Seni çok seviyorum 💖
 </div>
 
@@ -144,8 +176,6 @@ Seni çok seviyorum 💖
   <img src="foto10.jpg" onclick="openImage(this.src)">
 </div>
 
-<!-- MÜZİK -->
-
 <audio id="music" autoplay loop>
   <source src="sarki.mp3" type="audio/mpeg">
 </audio>
@@ -159,34 +189,60 @@ Seni çok seviyorum 💖
 </div>
 
 <script>
-// FOTO
+// ✍️ BURAYI DEĞİŞTİR
+const text = "Seninle başlayan her şey daha güzel... ❤️";
+
+// yazı animasyonu
+let i = 0;
+function typeWriter() {
+  if (i < text.length) {
+    document.getElementById("splashText").innerHTML += text.charAt(i);
+    i++;
+    setTimeout(typeWriter, 50);
+  } else {
+    setTimeout(() => {
+      document.getElementById("splash").style.display = "none";
+    }, 1500);
+  }
+}
+
+window.onload = typeWriter;
+
+// titreşim
+function vibrate() {
+  if (navigator.vibrate) navigator.vibrate(30);
+}
+
+// foto
 function openImage(src) {
+  vibrate();
   document.getElementById("lightbox").style.display = "flex";
   document.getElementById("lightbox-img").src = src;
 }
 
 function closeImage() {
+  vibrate();
   document.getElementById("lightbox").style.display = "none";
 }
 
-// MÜZİK (tarayıcı fix)
+// müzik fix
 window.addEventListener("click", () => {
   document.getElementById("music").play();
 });
 
-// KALP ANİMASYONU
+// kalpler
 setInterval(() => {
   const heart = document.createElement("div");
   heart.className = "heart";
   heart.innerText = "❤️";
 
   heart.style.left = Math.random() * 100 + "vw";
-  heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
+  heart.style.animationDuration = (Math.random() * 2 + 3) + "s";
 
   document.body.appendChild(heart);
 
-  setTimeout(() => heart.remove(), 6000);
-}, 400);
+  setTimeout(() => heart.remove(), 5000);
+}, 500);
 </script>
 
 </body>
