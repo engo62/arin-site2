@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>𝓐𝓻𝓲𝓷🤍𝓔𝓷𝓰𝓲𝓷 </title>
+<title>𝑨𝒓𝒊𝒏🤍𝑬𝒏𝒈𝒊𝒏</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:ital@1&display=swap" rel="stylesheet">
 
@@ -13,6 +13,10 @@
 <link rel="apple-touch-icon" href="icon.png">
 
 <style>
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   margin:0;
   font-family:'Poppins',sans-serif;
@@ -20,7 +24,8 @@ body {
   background:linear-gradient(135deg,#1e1e2f,#2c2c54,#ff6b81);
   display:flex;
   justify-content:center;
-  overflow:hidden;
+  overflow-x:hidden;
+  overflow-y:auto;
 }
 
 /* SPLASH */
@@ -32,34 +37,16 @@ body {
   align-items:center;
   background:#1e1e2f;
   z-index:9999;
-  overflow:hidden;
+  text-align:center;
+  padding:20px;
 }
 
-/* glow efekt */
-#splash::before {
-  content:"";
-  position:absolute;
-  width:300px;
-  height:300px;
-  background:radial-gradient(circle, rgba(255,107,129,0.4), transparent);
-  animation:pulse 3s infinite;
-}
-
-@keyframes pulse {
-  0% {transform:scale(0.8);opacity:0.6;}
-  50% {transform:scale(1.2);opacity:1;}
-  100% {transform:scale(0.8);opacity:0.6;}
-}
-
-/* yazı */
 #splashText {
   font-size:22px;
-  text-align:center;
   max-width:300px;
-  text-shadow:0 0 10px rgba(255,255,255,0.5);
 }
 
-/* container */
+/* CONTAINER */
 .container {
   max-width:420px;
   margin:20px;
@@ -69,7 +56,7 @@ body {
   text-align:center;
 }
 
-/* galeri */
+/* GALERİ */
 .gallery {
   display:grid;
   grid-template-columns:repeat(2,1fr);
@@ -81,9 +68,14 @@ body {
   aspect-ratio:1/1;
   object-fit:cover;
   border-radius:10px;
+  cursor:pointer;
 }
 
-/* lightbox */
+.gallery img:active {
+  transform:scale(0.95);
+}
+
+/* LIGHTBOX */
 #lightbox {
   position:fixed;
   inset:0;
@@ -97,7 +89,7 @@ body {
   width:90%;
 }
 
-/* kalpler */
+/* KALP ANİMASYON */
 @keyframes floatUp {
   to {
     transform:translateY(-100vh);
@@ -110,13 +102,16 @@ body {
 
 <body>
 
+<!-- SPLASH -->
+
 <div id="splash">
   <div id="splashText"></div>
 </div>
 
 <div class="container">
-<h1>İyi ki Doğdun ❤️</h1>
-<p> Benim güzel kızım.. Seni her şeyden çok seviyorum.
+<h1>Hayatımın Anlamına</h1>
+
+<p>Benim güzel kızım.. Seni her şeyden çok seviyorum.
 Doğum Gününe özel sonsuza kadar saklayabileceğimiz
 bir anı bırakmak istedim. 18'inci yaş günün başta sağlık
 sonrasında akademik başarı getirsin. Bir ömür mutlu ve benimle yaşarsın inşallah.
@@ -133,7 +128,7 @@ Bir gün düşersen bile seni ben kaldıracağım. Beraber düşersekte birlikte
 Biliyorum ki bu bir tesadüf değil. En zor zamanımda girdin hayatıma. Beni tekrardan hayata döndürdün. Bana sevmeyi, sevilmeyi
 öğrettin. Senden o kadar çok şey öğrendim ki... Hayatımı baştan çizdim senin sayende. Bazı şeyleri sadece kendim için değil
 bizim için çabalıyorum. İlerde daha güzel günler görmek için çabalıyorum. Seni her şeyden çok seviyorum iyi ki doğdun 
-birtanem <3 </p>
+birtanem <3</p>
 
 <div class="gallery">
 <img src="foto1.jpg" onclick="openImage(this.src)">
@@ -151,7 +146,10 @@ birtanem <3 </p>
 <audio id="music" loop>
   <source src="sarki.mp3">
 </audio>
+
 </div>
+
+<!-- LIGHTBOX -->
 
 <div id="lightbox" onclick="closeImage()">
 <img id="lightbox-img">
@@ -159,7 +157,7 @@ birtanem <3 </p>
 
 <script>
 // ✍️ YAZIYI BURADAN DEĞİŞTİR
-const text="Dünyanın en güzel kızına..";
+const text="Dünyanın en güzel kızına...";
 let i=0;
 let started=false;
 
@@ -186,12 +184,11 @@ setInterval(()=>{
  setTimeout(()=>heart.remove(),4000);
 },400);
 
-// başlat
+// BAŞLAT (dokununca)
 function startExperience(){
  if(started) return;
  started=true;
 
- // titreşim
  if(navigator.vibrate){
   navigator.vibrate([100,50,100]);
  }
@@ -200,7 +197,6 @@ function startExperience(){
  music.volume=0;
  music.play();
 
- // fade-in müzik
  let vol=0;
  const fade=setInterval(()=>{
   if(vol<1){
@@ -211,16 +207,14 @@ function startExperience(){
   }
  },200);
 
- // splash kapat
  setTimeout(()=>{
   document.getElementById("splash").style.display="none";
  },1500);
 }
 
-// dokununca başlat
 document.getElementById("splash").addEventListener("click",startExperience);
 
-// foto
+// foto büyütme
 function openImage(src){
  document.getElementById("lightbox").style.display="flex";
  document.getElementById("lightbox-img").src=src;
@@ -231,7 +225,7 @@ function closeImage(){
 
 // service worker
 if('serviceWorker' in navigator){
- navigator.serviceWorker.register('sw.js');
+ navigator.serviceWorker.register('sw.js?v=5');
 }
 </script>
 
