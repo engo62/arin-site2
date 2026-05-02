@@ -4,9 +4,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>text </title>
+<title>İyi ki Doğdun ❤️</title>
+
+<!-- FONT -->
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:ital@1&display=swap" rel="stylesheet">
+
+<!-- PWA -->
+
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#ff6b81">
+<link rel="apple-touch-icon" href="icon.png">
 
 <style>
 body {
@@ -17,9 +25,10 @@ body {
   background: linear-gradient(135deg, #1e1e2f, #2c2c54, #ff6b81);
   display: flex;
   justify-content: center;
+  overflow-x: hidden;
 }
 
-/* ışık efekti */
+/* glow */
 body::before {
   content: "";
   position: fixed;
@@ -28,10 +37,10 @@ body::before {
   z-index: -1;
 }
 
-/* TELEFON KARTI */
+/* container (telefon görünümü) */
 .container {
   width: 100%;
-  max-width: 420px; /* telefon genişliği */
+  max-width: 420px;
   margin: 20px;
   padding: 20px;
   border-radius: 25px;
@@ -39,14 +48,12 @@ body::before {
   backdrop-filter: blur(15px);
   text-align: center;
 
+  opacity: 0;
+  transform: translateY(30px);
   animation: fadeIn 1.5s ease forwards;
 }
 
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
   to {
     opacity: 1;
     transform: translateY(0);
@@ -62,7 +69,7 @@ h1 {
   margin-bottom: 15px;
 }
 
-/* GALERİ (mobil uyumlu) */
+/* GALERİ */
 .gallery {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -116,10 +123,12 @@ h1 {
 
 <div class="container">
 
-<h1>text </h1>
+<h1>İyi ki Doğdun ❤️</h1>
 
 <div class="message">
-text
+Benim güzel kızım, sevgilim...  
+Bu siteyi sana küçük bir anı bırakmak için yaptım.  
+Seni çok seviyorum 💖
 </div>
 
 <div class="gallery">
@@ -135,6 +144,8 @@ text
   <img src="foto10.jpg" onclick="openImage(this.src)">
 </div>
 
+<!-- MÜZİK -->
+
 <audio id="music" autoplay loop>
   <source src="sarki.mp3" type="audio/mpeg">
 </audio>
@@ -148,6 +159,7 @@ text
 </div>
 
 <script>
+// FOTO
 function openImage(src) {
   document.getElementById("lightbox").style.display = "flex";
   document.getElementById("lightbox-img").src = src;
@@ -157,11 +169,12 @@ function closeImage() {
   document.getElementById("lightbox").style.display = "none";
 }
 
+// MÜZİK (tarayıcı fix)
 window.addEventListener("click", () => {
   document.getElementById("music").play();
 });
 
-// kalpler
+// KALP ANİMASYONU
 setInterval(() => {
   const heart = document.createElement("div");
   heart.className = "heart";
