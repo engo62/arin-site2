@@ -4,9 +4,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>text </title>
+<title>İyi ki Doğdun ❤️</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:ital@1&display=swap" rel="stylesheet">
+
+<!-- PWA -->
 
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#ff6b81">
@@ -21,7 +23,6 @@ html {
 body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
-  font-style: italic;
   color: white;
   background: linear-gradient(135deg, #1e1e2f, #2c2c54, #ff6b81);
   display: flex;
@@ -82,16 +83,6 @@ body::before {
   }
 }
 
-h1 {
-  font-size: 24px;
-}
-
-.message {
-  font-size: 14px;
-  margin-bottom: 15px;
-}
-
-/* GALERİ */
 .gallery {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -104,14 +95,13 @@ h1 {
   object-fit: cover;
   border-radius: 12px;
   cursor: pointer;
-  transition: 0.2s;
 }
 
 .gallery img:active {
   transform: scale(0.95);
 }
 
-/* LIGHTBOX */
+/* lightbox */
 #lightbox {
   position: fixed;
   inset: 0;
@@ -127,7 +117,7 @@ h1 {
   border-radius: 15px;
 }
 
-/* KALPLER */
+/* kalpler */
 .heart {
   position: fixed;
   bottom: -20px;
@@ -148,7 +138,7 @@ h1 {
 
 <body>
 
-<!-- SPLASH SCREEN -->
+<!-- SPLASH -->
 
 <div id="splash">
   <div id="splashText"></div>
@@ -156,11 +146,9 @@ h1 {
 
 <div class="container">
 
-<h1>text </h1>
+<h1>İyi ki Doğdun ❤️</h1>
 
-<div class="message">
-text
-</div>
+<p>Benim güzel kızım... Seni çok seviyorum 💖</p>
 
 <div class="gallery">
   <img src="foto1.jpg" onclick="openImage(this.src)">
@@ -181,17 +169,15 @@ text
 
 </div>
 
-<!-- LIGHTBOX -->
-
 <div id="lightbox" onclick="closeImage()">
   <img id="lightbox-img">
 </div>
 
 <script>
 // ✍️ BURAYI DEĞİŞTİR
-const text = "text";
+const text = "Seninle başlayan her şey daha güzel... ❤️";
 
-// yazı animasyonu
+// splash yazı
 let i = 0;
 function typeWriter() {
   if (i < text.length) {
@@ -204,28 +190,20 @@ function typeWriter() {
     }, 1500);
   }
 }
-
 window.onload = typeWriter;
-
-// titreşim
-function vibrate() {
-  if (navigator.vibrate) navigator.vibrate(30);
-}
 
 // foto
 function openImage(src) {
-  vibrate();
   document.getElementById("lightbox").style.display = "flex";
   document.getElementById("lightbox-img").src = src;
 }
 
 function closeImage() {
-  vibrate();
   document.getElementById("lightbox").style.display = "none";
 }
 
 // müzik fix
-window.addEventListener("click", () => {
+document.addEventListener("click", () => {
   document.getElementById("music").play();
 });
 
@@ -242,6 +220,11 @@ setInterval(() => {
 
   setTimeout(() => heart.remove(), 5000);
 }, 500);
+
+// SERVICE WORKER (uygulama hissi)
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js');
+}
 </script>
 
 </body>
