@@ -3,6 +3,7 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>İyi ki Doğdun ❤️</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:ital@1&display=swap" rel="stylesheet">
@@ -12,36 +13,40 @@ body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
   font-style: italic;
-  background: linear-gradient(135deg, #ff6b81, #ff9a9e, #ffd1dc);
   color: white;
+  background: linear-gradient(135deg, #1e1e2f, #2c2c54, #ff6b81);
+  display: flex;
+  justify-content: center;
 }
 
-/* glow */
+/* ışık efekti */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
-  background: radial-gradient(circle at top, rgba(255,255,255,0.3), transparent 70%);
+  background: radial-gradient(circle at top, rgba(255,255,255,0.08), transparent 60%);
   z-index: -1;
 }
 
-/* animasyon */
+/* TELEFON KARTI */
 .container {
-  max-width: 900px;
-  margin: 40px auto;
-  padding: 30px;
+  width: 100%;
+  max-width: 420px; /* telefon genişliği */
+  margin: 20px;
+  padding: 20px;
   border-radius: 25px;
-  background: rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.12);
   backdrop-filter: blur(15px);
-  box-shadow: 0 8px 30px rgba(0,0,0,0.3);
   text-align: center;
 
-  opacity: 0;
-  transform: translateY(30px);
   animation: fadeIn 1.5s ease forwards;
 }
 
 @keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
   to {
     opacity: 1;
     transform: translateY(0);
@@ -49,48 +54,30 @@ body::before {
 }
 
 h1 {
-  font-size: 40px;
+  font-size: 26px;
 }
 
 .message {
-  font-size: 18px;
-  margin-bottom: 20px;
+  font-size: 14px;
+  margin-bottom: 15px;
 }
 
+/* GALERİ (mobil uyumlu) */
 .gallery {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 15px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
 }
 
 .gallery img {
   width: 100%;
-  border-radius: 15px;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  border-radius: 12px;
   cursor: pointer;
-  transition: 0.3s;
 }
 
-.gallery img:hover {
-  transform: scale(1.08);
-}
-
-button {
-  margin-top: 20px;
-  padding: 12px 20px;
-  border-radius: 25px;
-  border: none;
-  cursor: pointer;
-  background: white;
-  color: #ff4d6d;
-  font-weight: bold;
-  transition: 0.3s;
-}
-
-button:hover {
-  transform: scale(1.05);
-}
-
-/* lightbox */
+/* LIGHTBOX */
 #lightbox {
   position: fixed;
   inset: 0;
@@ -103,24 +90,23 @@ button:hover {
 #lightbox img {
   max-width: 90%;
   max-height: 90%;
-  border-radius: 20px;
+  border-radius: 15px;
 }
 
-/* video overlay */
-#videoOverlay {
+/* KALPLER */
+.heart {
   position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.95);
-  display: none;
-  justify-content: center;
-  align-items: center;
-  z-index: 999;
+  bottom: -20px;
+  color: #ff6b81;
+  font-size: 16px;
+  animation: floatUp linear infinite;
 }
 
-#videoOverlay video {
-  width: 90%;
-  max-width: 900px;
-  border-radius: 20px;
+@keyframes floatUp {
+  to {
+    transform: translateY(-110vh);
+    opacity: 0;
+  }
 }
 </style>
 
@@ -133,8 +119,7 @@ button:hover {
 <h1>İyi ki Doğdun ❤️</h1>
 
 <div class="message">
-Benim güzel kızım, sevgilim, her şeyim...  
-Bu siteyi sana küçük bir anı bırakmak için yaptım.  
+Benim güzel kızım...  
 Seni her şeyden çok seviyorum 💖
 </div>
 
@@ -151,22 +136,16 @@ Seni her şeyden çok seviyorum 💖
   <img src="foto10.jpg" onclick="openImage(this.src)">
 </div>
 
-<button onclick="playVideo()">Sana küçük bir sürprizim var 🎬</button>
-
 <audio id="music" autoplay loop>
   <source src="sarki.mp3" type="audio/mpeg">
 </audio>
 
 </div>
 
+<!-- LIGHTBOX -->
+
 <div id="lightbox" onclick="closeImage()">
   <img id="lightbox-img">
-</div>
-
-<div id="videoOverlay" onclick="closeVideo()">
-  <video id="myVideo" controls>
-    <source src="video.mp4" type="video/mp4">
-  </video>
 </div>
 
 <script>
@@ -179,30 +158,23 @@ function closeImage() {
   document.getElementById("lightbox").style.display = "none";
 }
 
-function playVideo() {
-  const video = document.getElementById("myVideo");
-  const overlay = document.getElementById("videoOverlay");
-  const music = document.getElementById("music");
-
-  if (music) {
-    music.pause();
-    music.currentTime = 0;
-  }
-
-  overlay.style.display = "flex";
-  video.muted = false;
-  video.play();
-}
-
-function closeVideo() {
-  const video = document.getElementById("myVideo");
-  video.pause();
-  document.getElementById("videoOverlay").style.display = "none";
-}
-
 window.addEventListener("click", () => {
   document.getElementById("music").play();
 });
+
+// kalpler
+setInterval(() => {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerText = "❤️";
+
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
+
+  document.body.appendChild(heart);
+
+  setTimeout(() => heart.remove(), 6000);
+}, 400);
 </script>
 
 </body>
