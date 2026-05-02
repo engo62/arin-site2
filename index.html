@@ -1,184 +1,122 @@
 <!DOCTYPE html>
-
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>İyi ki Doğdun ❤️</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:ital@1&display=swap" rel="stylesheet">
-
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#ff6b81">
-<link rel="apple-touch-icon" href="icon.png">
+<title>Intro</title>
 
 <style>
-body {
-  margin:0;
-  font-family:'Poppins',sans-serif;
-  color:white;
-  background:linear-gradient(135deg,#1e1e2f,#2c2c54,#ff6b81);
-  display:flex;
-  justify-content:center;
-}
+  body {
+    margin: 0;
+    background: black;
+    font-family: sans-serif;
+    overflow: hidden;
+  }
 
-/* SPLASH */
-#splash {
-  position:fixed;
-  inset:0;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  background:#1e1e2f;
-  z-index:9999;
-  text-align:center;
-  padding:20px;
-}
+  #splash {
+    position: fixed;
+    inset: 0;
+    background: black;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 1;
+    transition: opacity 0.6s ease;
+    z-index: 9999;
+  }
 
-#splashText {
-  font-size:20px;
-}
-
-/* CONTAINER */
-.container {
-  max-width:420px;
-  margin:20px;
-  padding:20px;
-  border-radius:20px;
-  background:rgba(255,255,255,0.1);
-  text-align:center;
-}
-
-/* GALERİ */
-.gallery {
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:10px;
-}
-
-.gallery img {
-  width:100%;
-  aspect-ratio:1/1;
-  object-fit:cover;
-  border-radius:10px;
-  cursor:pointer;
-}
-
-/* LIGHTBOX */
-#lightbox {
-  position:fixed;
-  inset:0;
-  background:black;
-  display:none;
-  justify-content:center;
-  align-items:center;
-}
-
-#lightbox img {
-  width:90%;
-}
+  #splashText {
+    font-size: 22px;
+    text-align: center;
+    letter-spacing: 1px;
+  }
 </style>
-
 </head>
 
 <body>
 
-<!-- SPLASH -->
-
 <div id="splash">
-  <div id="splashText"></div>
+  <h1 id="splashText"></h1>
 </div>
 
-<div class="container">
-<h1>İyi ki Doğdun ❤️</h1>
-
-<p>Benim güzel kızım... Seni çok seviyorum 💖</p>
-
-<div class="gallery">
-<img src="foto1.jpg" onclick="openImage(this.src)">
-<img src="foto2.jpg" onclick="openImage(this.src)">
-<img src="foto3.jpg" onclick="openImage(this.src)">
-<img src="foto4.jpg" onclick="openImage(this.src)">
-<img src="foto5.jpg" onclick="openImage(this.src)">
-<img src="foto6.jpg" onclick="openImage(this.src)">
-<img src="foto7.jpg" onclick="openImage(this.src)">
-<img src="foto8.jpg" onclick="openImage(this.src)">
-<img src="foto9.jpg" onclick="openImage(this.src)">
-<img src="foto10.jpg" onclick="openImage(this.src)">
-</div>
-
-<audio id="music" loop>
-  <source src="sarki.mp3">
-</audio>
-</div>
-
-<!-- LIGHTBOX -->
-
-<div id="lightbox" onclick="closeImage()">
-<img id="lightbox-img">
-</div>
+<audio id="sarki" src="music.mp3"></audio>
 
 <script>
-// ✍️ YAZI
-const text = "Hazır mısın... Bu sana özel ❤️";
-let i = 0;
-let started = false;
+const text = "İyi ki varsın Arin ❤️";
 
+let typingDone = false;
+let musicStarted = false;
+
+// ✍️ yazı efekti
 function typeWriter() {
-  if (i < text.length) {
-    document.getElementById("splashText").innerHTML += text.charAt(i);
-    i++;
-    setTimeout(typeWriter, 50);
-  }
+  const el = document.getElementById("splashText");
+  el.innerHTML = "";
+
+  let i = 0;
+
+  const interval = setInterval(() => {
+    if (i < text.length) {
+      el.innerHTML += text[i];
+      i++;
+    } else {
+      clearInterval(interval);
+      typingDone = true;
+    }
+  }, 50);
 }
-window.onload = typeWriter;
 
-// 🚀 BAŞLAT
+// 🚀 deneyimi başlat
 function startExperience() {
-  if (started) return;
-  started = true;
+  if (!typingDone || musicStarted) return;
 
-  // titreşim
+  musicStarted = true;
+
+  const splash = document.getElementById("splash");
+  const sarki = document.getElementById("sarki");
+
+  // 📳 titreşim
   if (navigator.vibrate) {
-    navigator.vibrate([100,50,100]);
+    navigator.vibrate([40, 20, 40]);
   }
 
-  const music = document.getElementById("music");
-  music.volume = 0;
-  music.play();
+  // 🎬 smooth fade out
+  splash.style.opacity = "0";
+  setTimeout(() => {
+    splash.style.display = "none";
+  }, 600);
 
-  // fade-in
+  // 🎧 şarkı fade-in
+  sarki.volume = 0;
+  sarki.play().catch(() => {});
+
   let vol = 0;
   const fade = setInterval(() => {
-    if (vol < 1) {
-      vol += 0.05;
-      music.volume = vol;
-    } else {
-      clearInterval(fade);
-    }
-  }, 200);
-
-  // splash kapat
-  setTimeout(() => {
-    document.getElementById("splash").style.display = "none";
-  }, 1500);
+    vol = Math.min(vol + 0.02, 1);
+    sarki.volume = vol;
+    if (vol >= 1) clearInterval(fade);
+  }, 50);
 }
 
-// dokununca başlat
-document.getElementById("splash").addEventListener("click", startExperience);
+// 📱 click + touch
+const splash = document.getElementById("splash");
+splash.addEventListener("click", startExperience);
+splash.addEventListener("touchstart", startExperience);
 
-// foto
-function openImage(src) {
-  document.getElementById("lightbox").style.display = "flex";
-  document.getElementById("lightbox-img").src = src;
-}
-function closeImage() {
-  document.getElementById("lightbox").style.display = "none";
-}
+// ✍️ başlat
+window.onload = typeWriter;
 
-// service worker
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('sw.js');
+// 🔓 mobil audio unlock fix
+document.addEventListener("touchstart", () => {
+  const sarki = document.getElementById("sarki");
+  if (sarki) {
+    sarki.play().then(() => sarki.pause()).catch(() => {});
+  }
+}, { once: true });
+
+// 📦 service worker
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("sw.js");
 }
 </script>
 
