@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>𝓐𝓻𝓲𝓷🤍𝓔𝓷𝓰𝓲𝓷 </title>
+<title>İyi ki Doğdun ❤️</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:ital@1&display=swap" rel="stylesheet">
 
@@ -20,6 +20,7 @@ body {
   background:linear-gradient(135deg,#1e1e2f,#2c2c54,#ff6b81);
   display:flex;
   justify-content:center;
+  overflow:hidden;
 }
 
 /* SPLASH */
@@ -31,15 +32,34 @@ body {
   align-items:center;
   background:#1e1e2f;
   z-index:9999;
-  text-align:center;
-  padding:20px;
+  overflow:hidden;
 }
 
+/* glow efekt */
+#splash::before {
+  content:"";
+  position:absolute;
+  width:300px;
+  height:300px;
+  background:radial-gradient(circle, rgba(255,107,129,0.4), transparent);
+  animation:pulse 3s infinite;
+}
+
+@keyframes pulse {
+  0% {transform:scale(0.8);opacity:0.6;}
+  50% {transform:scale(1.2);opacity:1;}
+  100% {transform:scale(0.8);opacity:0.6;}
+}
+
+/* yazı */
 #splashText {
-  font-size:20px;
+  font-size:22px;
+  text-align:center;
+  max-width:300px;
+  text-shadow:0 0 10px rgba(255,255,255,0.5);
 }
 
-/* CONTAINER */
+/* container */
 .container {
   max-width:420px;
   margin:20px;
@@ -49,7 +69,7 @@ body {
   text-align:center;
 }
 
-/* GALERİ */
+/* galeri */
 .gallery {
   display:grid;
   grid-template-columns:repeat(2,1fr);
@@ -61,10 +81,9 @@ body {
   aspect-ratio:1/1;
   object-fit:cover;
   border-radius:10px;
-  cursor:pointer;
 }
 
-/* LIGHTBOX */
+/* lightbox */
 #lightbox {
   position:fixed;
   inset:0;
@@ -77,22 +96,27 @@ body {
 #lightbox img {
   width:90%;
 }
+
+/* kalpler */
+@keyframes floatUp {
+  to {
+    transform:translateY(-100vh);
+    opacity:0;
+  }
+}
 </style>
 
 </head>
 
 <body>
 
-<!-- SPLASH -->
-
 <div id="splash">
   <div id="splashText"></div>
 </div>
 
 <div class="container">
-<h1>Hayatımın Anlamına </h1>
-
-<p>Benim güzel kızım.. Seni her şeyden çok seviyorum.
+<h1>İyi ki Doğdun ❤️</h1>
+<p> Benim güzel kızım.. Seni her şeyden çok seviyorum.
 Doğum Gününe özel sonsuza kadar saklayabileceğimiz
 bir anı bırakmak istedim. 18'inci yaş günün başta sağlık
 sonrasında akademik başarı getirsin. Bir ömür mutlu ve benimle yaşarsın inşallah.
@@ -109,7 +133,7 @@ Bir gün düşersen bile seni ben kaldıracağım. Beraber düşersekte birlikte
 Biliyorum ki bu bir tesadüf değil. En zor zamanımda girdin hayatıma. Beni tekrardan hayata döndürdün. Bana sevmeyi, sevilmeyi
 öğrettin. Senden o kadar çok şey öğrendim ki... Hayatımı baştan çizdim senin sayende. Bazı şeyleri sadece kendim için değil
 bizim için çabalıyorum. İlerde daha güzel günler görmek için çabalıyorum. Seni her şeyden çok seviyorum iyi ki doğdun 
-birtanem <3</p>
+birtanem <3 </p>
 
 <div class="gallery">
 <img src="foto1.jpg" onclick="openImage(this.src)">
@@ -129,73 +153,85 @@ birtanem <3</p>
 </audio>
 </div>
 
-<!-- LIGHTBOX -->
-
 <div id="lightbox" onclick="closeImage()">
 <img id="lightbox-img">
 </div>
 
 <script>
-// ✍️ YAZI
-const text = "Dünyanın en güzel kızına";
-let i = 0;
-let started = false;
+// ✍️ YAZIYI BURADAN DEĞİŞTİR
+const text="Dünyanın en güzel kızına..";
+let i=0;
+let started=false;
 
-function typeWriter() {
-  if (i < text.length) {
-    document.getElementById("splashText").innerHTML += text.charAt(i);
-    i++;
-    setTimeout(typeWriter, 50);
-  }
+// yazı animasyonu
+function typeWriter(){
+ if(i<text.length){
+  document.getElementById("splashText").innerHTML+=text.charAt(i);
+  i++;
+  setTimeout(typeWriter,50);
+ }
 }
-window.onload = typeWriter;
+window.onload=typeWriter;
 
-// 🚀 BAŞLAT
-function startExperience() {
-  if (started) return;
-  started = true;
+// splash kalpler
+setInterval(()=>{
+ const heart=document.createElement("div");
+ heart.innerText="❤️";
+ heart.style.position="absolute";
+ heart.style.left=Math.random()*100+"%";
+ heart.style.bottom="0";
+ heart.style.fontSize="14px";
+ heart.style.animation="floatUp 4s linear";
+ document.getElementById("splash").appendChild(heart);
+ setTimeout(()=>heart.remove(),4000);
+},400);
 
-  // titreşim
-  if (navigator.vibrate) {
-    navigator.vibrate([100,50,100]);
+// başlat
+function startExperience(){
+ if(started) return;
+ started=true;
+
+ // titreşim
+ if(navigator.vibrate){
+  navigator.vibrate([100,50,100]);
+ }
+
+ const music=document.getElementById("music");
+ music.volume=0;
+ music.play();
+
+ // fade-in müzik
+ let vol=0;
+ const fade=setInterval(()=>{
+  if(vol<1){
+   vol+=0.05;
+   music.volume=vol;
+  }else{
+   clearInterval(fade);
   }
+ },200);
 
-  const music = document.getElementById("music");
-  music.volume = 0;
-  music.play();
-
-  // fade-in
-  let vol = 0;
-  const fade = setInterval(() => {
-    if (vol < 1) {
-      vol += 0.05;
-      music.volume = vol;
-    } else {
-      clearInterval(fade);
-    }
-  }, 200);
-
-  // splash kapat
-  setTimeout(() => {
-    document.getElementById("splash").style.display = "none";
-  }, 1500);
+ // splash kapat
+ setTimeout(()=>{
+  document.getElementById("splash").style.display="none";
+ },1500);
 }
 
 // dokununca başlat
-document.getElementById("splash").addEventListener("click", startExperience);
+document.getElementById("splash").addEventListener("click",startExperience);
 
 // foto
-function openImage(src) {
-  document.getElementById("lightbox").style.display = "flex";
-  document.getElementById("lightbox-img").src = src;
+function openImage(src){
+ document.getElementById("lightbox").style.display="flex";
+ document.getElementById("lightbox-img").src=src;
 }
-function closeImage() {
-  document.getElementById("lightbox").style.display = "none";
+function closeImage(){
+ document.getElementById("lightbox").style.display="none";
 }
 
 // service worker
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('sw.js');
+if('serviceWorker' in navigator){
+ navigator.serviceWorker.register('sw.js');
 }
 </script>
 
