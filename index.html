@@ -94,6 +94,7 @@ body {
 #lightbox-img {
   width:90%;
   transition:transform 0.3s, opacity 0.3s;
+  will-change: transform;
 }
 
 /* DOTS */
@@ -129,8 +130,6 @@ body {
 
 <body>
 
-<!-- SPLASH -->
-
 <div id="splash">
   <div id="splashText"></div>
 </div>
@@ -154,8 +153,7 @@ Bir gün düşersen bile seni ben kaldıracağım. Beraber düşersekte birlikte
 Biliyorum ki bu bir tesadüf değil. En zor zamanımda girdin hayatıma. Beni tekrardan hayata döndürdün. Bana sevmeyi, sevilmeyi
 öğrettin. Senden o kadar çok şey öğrendim ki... Hayatımı baştan çizdim senin sayende. Bazı şeyleri sadece kendim için değil
 bizim için çabalıyorum. İlerde daha güzel günler görmek için çabalıyorum. Seni her şeyden çok seviyorum iyi ki doğdun 
-birtanem <3
-</p>
+birtanem <3</p>
 
 <div class="gallery">
 <img src="foto1.jpg" data-index="0" onclick="openImage(this)">
@@ -175,16 +173,14 @@ birtanem <3
 </audio>
 </div>
 
-<!-- LIGHTBOX -->
-
 <div id="lightbox">
   <img id="lightbox-img">
   <div id="dots"></div>
 </div>
 
 <script>
-// ✍️ YAZI
-const text="Dünyanın En Güzel Kızına";
+// yazı
+const text="Dünyanın En Güzel Kızına..";
 let i=0;
 let started=false;
 
@@ -240,16 +236,18 @@ function startExperience(){
 
 document.getElementById("splash").addEventListener("click",startExperience);
 
-// GALERİ
+// galeri
 let currentIndex=0;
 let startX=0;
+let isDragging=false;
+let currentTranslate=0;
 
 const images=[
 "foto1.jpg","foto2.jpg","foto3.jpg","foto4.jpg","foto5.jpg",
 "foto6.jpg","foto7.jpg","foto8.jpg","foto9.jpg","foto10.jpg"
 ];
 
-// dots oluştur
+// dots
 const dotsContainer=document.getElementById("dots");
 images.forEach(()=>{
  const d=document.createElement("div");
@@ -278,48 +276,61 @@ function closeImage(){
 
 document.getElementById("lightbox").addEventListener("click",closeImage);
 
-// swipe
+// swipe animasyonlu
 const lightbox=document.getElementById("lightbox");
 const img=document.getElementById("lightbox-img");
 
 lightbox.addEventListener("touchstart",e=>{
  startX=e.touches[0].clientX;
+ isDragging=true;
 });
 
 lightbox.addEventListener("touchmove",e=>{
+ if(!isDragging) return;
+
  let moveX=e.touches[0].clientX;
  let diff=moveX-startX;
- img.style.transform=`translateX(${diff}px)`;
+
+ currentTranslate=diff;
+ img.style.transition="none";
+ img.style.transform=`translateX(${diff}px) scale(0.98)`;
 });
 
-lightbox.addEventListener("touchend",e=>{
- let endX=e.changedTouches[0].clientX;
- let diff=startX-endX;
+lightbox.addEventListener("touchend",()=>{
+ isDragging=false;
 
- img.style.transform="translateX(0)";
+ let diff=currentTranslate;
 
- if(Math.abs(diff)>50){
-  if(diff>0){
+ img.style.transition="transform 0.4s ease, opacity 0.3s";
+
+ if(Math.abs(diff)>80){
+  if(diff<0){
    currentIndex=(currentIndex+1)%images.length;
+   img.style.transform="translateX(-100%) scale(0.95)";
   }else{
    currentIndex=(currentIndex-1+images.length)%images.length;
+   img.style.transform="translateX(100%) scale(0.95)";
   }
-
-  img.style.opacity=0;
 
   setTimeout(()=>{
    img.src=images[currentIndex];
-   img.style.opacity=1;
+   img.style.transition="none";
+   img.style.transform="translateX(0) scale(1)";
    updateDots();
-  },150);
+  },200);
 
   if(navigator.vibrate) navigator.vibrate(20);
+
+ }else{
+  img.style.transform="translateX(0) scale(1)";
  }
+
+ currentTranslate=0;
 });
 
 // service worker
 if('serviceWorker' in navigator){
- navigator.serviceWorker.register('sw.js?v=10');
+ navigator.serviceWorker.register('sw.js?v=20');
 }
 </script>
 
