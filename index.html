@@ -13,6 +13,10 @@
 <link rel="apple-touch-icon" href="icon.png">
 
 <style>
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -69,6 +73,7 @@ body {
   object-fit:cover;
   border-radius:10px;
   cursor:pointer;
+  transition:0.2s;
 }
 
 .gallery img:active {
@@ -83,13 +88,35 @@ body {
   display:none;
   justify-content:center;
   align-items:center;
+  flex-direction:column;
 }
 
-#lightbox img {
+#lightbox-img {
   width:90%;
+  transition:transform 0.3s, opacity 0.3s;
 }
 
-/* KALP ANİMASYON */
+/* DOTS */
+#dots {
+  position:absolute;
+  bottom:20px;
+  display:flex;
+  gap:6px;
+}
+
+.dot {
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:rgba(255,255,255,0.4);
+}
+
+.dot.active {
+  background:white;
+  transform:scale(1.3);
+}
+
+/* KALP */
 @keyframes floatUp {
   to {
     transform:translateY(-100vh);
@@ -109,8 +136,7 @@ body {
 </div>
 
 <div class="container">
-<h1>Hayatımın Anlamına</h1>
-
+<h1>Doğum Günü Hatırası</h1>
 <p>Benim güzel kızım.. Seni her şeyden çok seviyorum.
 Doğum Gününe özel sonsuza kadar saklayabileceğimiz
 bir anı bırakmak istedim. 18'inci yaş günün başta sağlık
@@ -128,40 +154,40 @@ Bir gün düşersen bile seni ben kaldıracağım. Beraber düşersekte birlikte
 Biliyorum ki bu bir tesadüf değil. En zor zamanımda girdin hayatıma. Beni tekrardan hayata döndürdün. Bana sevmeyi, sevilmeyi
 öğrettin. Senden o kadar çok şey öğrendim ki... Hayatımı baştan çizdim senin sayende. Bazı şeyleri sadece kendim için değil
 bizim için çabalıyorum. İlerde daha güzel günler görmek için çabalıyorum. Seni her şeyden çok seviyorum iyi ki doğdun 
-birtanem <3</p>
+birtanem <3
+</p>
 
 <div class="gallery">
-<img src="foto1.jpg" onclick="openImage(this.src)">
-<img src="foto2.jpg" onclick="openImage(this.src)">
-<img src="foto3.jpg" onclick="openImage(this.src)">
-<img src="foto4.jpg" onclick="openImage(this.src)">
-<img src="foto5.jpg" onclick="openImage(this.src)">
-<img src="foto6.jpg" onclick="openImage(this.src)">
-<img src="foto7.jpg" onclick="openImage(this.src)">
-<img src="foto8.jpg" onclick="openImage(this.src)">
-<img src="foto9.jpg" onclick="openImage(this.src)">
-<img src="foto10.jpg" onclick="openImage(this.src)">
+<img src="foto1.jpg" data-index="0" onclick="openImage(this)">
+<img src="foto2.jpg" data-index="1" onclick="openImage(this)">
+<img src="foto3.jpg" data-index="2" onclick="openImage(this)">
+<img src="foto4.jpg" data-index="3" onclick="openImage(this)">
+<img src="foto5.jpg" data-index="4" onclick="openImage(this)">
+<img src="foto6.jpg" data-index="5" onclick="openImage(this)">
+<img src="foto7.jpg" data-index="6" onclick="openImage(this)">
+<img src="foto8.jpg" data-index="7" onclick="openImage(this)">
+<img src="foto9.jpg" data-index="8" onclick="openImage(this)">
+<img src="foto10.jpg" data-index="9" onclick="openImage(this)">
 </div>
 
 <audio id="music" loop>
   <source src="sarki.mp3">
 </audio>
-
 </div>
 
 <!-- LIGHTBOX -->
 
-<div id="lightbox" onclick="closeImage()">
-<img id="lightbox-img">
+<div id="lightbox">
+  <img id="lightbox-img">
+  <div id="dots"></div>
 </div>
 
 <script>
-// ✍️ YAZIYI BURADAN DEĞİŞTİR
-const text="Dünyanın en güzel kızına...";
+// ✍️ YAZI
+const text="Dünyanın En Güzel Kızına";
 let i=0;
 let started=false;
 
-// yazı animasyonu
 function typeWriter(){
  if(i<text.length){
   document.getElementById("splashText").innerHTML+=text.charAt(i);
@@ -171,7 +197,7 @@ function typeWriter(){
 }
 window.onload=typeWriter;
 
-// splash kalpler
+// kalpler
 setInterval(()=>{
  const heart=document.createElement("div");
  heart.innerText="❤️";
@@ -184,7 +210,7 @@ setInterval(()=>{
  setTimeout(()=>heart.remove(),4000);
 },400);
 
-// BAŞLAT (dokununca)
+// başlat
 function startExperience(){
  if(started) return;
  started=true;
@@ -214,18 +240,86 @@ function startExperience(){
 
 document.getElementById("splash").addEventListener("click",startExperience);
 
-// foto büyütme
-function openImage(src){
- document.getElementById("lightbox").style.display="flex";
- document.getElementById("lightbox-img").src=src;
+// GALERİ
+let currentIndex=0;
+let startX=0;
+
+const images=[
+"foto1.jpg","foto2.jpg","foto3.jpg","foto4.jpg","foto5.jpg",
+"foto6.jpg","foto7.jpg","foto8.jpg","foto9.jpg","foto10.jpg"
+];
+
+// dots oluştur
+const dotsContainer=document.getElementById("dots");
+images.forEach(()=>{
+ const d=document.createElement("div");
+ d.className="dot";
+ dotsContainer.appendChild(d);
+});
+
+function updateDots(){
+ document.querySelectorAll(".dot").forEach((d,i)=>{
+  d.classList.toggle("active",i===currentIndex);
+ });
 }
+
+function openImage(el){
+ if(navigator.vibrate) navigator.vibrate(30);
+
+ currentIndex=parseInt(el.dataset.index);
+ document.getElementById("lightbox").style.display="flex";
+ document.getElementById("lightbox-img").src=images[currentIndex];
+ updateDots();
+}
+
 function closeImage(){
  document.getElementById("lightbox").style.display="none";
 }
 
+document.getElementById("lightbox").addEventListener("click",closeImage);
+
+// swipe
+const lightbox=document.getElementById("lightbox");
+const img=document.getElementById("lightbox-img");
+
+lightbox.addEventListener("touchstart",e=>{
+ startX=e.touches[0].clientX;
+});
+
+lightbox.addEventListener("touchmove",e=>{
+ let moveX=e.touches[0].clientX;
+ let diff=moveX-startX;
+ img.style.transform=`translateX(${diff}px)`;
+});
+
+lightbox.addEventListener("touchend",e=>{
+ let endX=e.changedTouches[0].clientX;
+ let diff=startX-endX;
+
+ img.style.transform="translateX(0)";
+
+ if(Math.abs(diff)>50){
+  if(diff>0){
+   currentIndex=(currentIndex+1)%images.length;
+  }else{
+   currentIndex=(currentIndex-1+images.length)%images.length;
+  }
+
+  img.style.opacity=0;
+
+  setTimeout(()=>{
+   img.src=images[currentIndex];
+   img.style.opacity=1;
+   updateDots();
+  },150);
+
+  if(navigator.vibrate) navigator.vibrate(20);
+ }
+});
+
 // service worker
 if('serviceWorker' in navigator){
- navigator.serviceWorker.register('sw.js?v=5');
+ navigator.serviceWorker.register('sw.js?v=10');
 }
 </script>
 
