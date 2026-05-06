@@ -8,121 +8,101 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:ital@1&display=swap" rel="stylesheet">
 
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#ff6b81">
-<link rel="apple-touch-icon" href="icon.png">
-
 <style>
-* {
-  -webkit-tap-highlight-color: transparent;
-}
+*{-webkit-tap-highlight-color:transparent;}
+html{scroll-behavior:smooth;}
 
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  margin:0;
-  font-family:'Poppins',sans-serif;
-  color:white;
-  background:linear-gradient(135deg,#1e1e2f,#2c2c54,#ff6b81);
-  display:flex;
-  justify-content:center;
-  overflow-x:hidden;
-  overflow-y:auto;
+body{
+margin:0;
+font-family:'Poppins',sans-serif;
+color:white;
+background:linear-gradient(135deg,#1e1e2f,#2c2c54,#ff6b81);
+display:flex;
+justify-content:center;
+overflow-x:hidden;
 }
 
 /* SPLASH */
-#splash {
-  position:fixed;
-  inset:0;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  background:#1e1e2f;
-  z-index:9999;
-  text-align:center;
-  padding:20px;
+#splash{
+position:fixed;
+inset:0;
+display:flex;
+justify-content:center;
+align-items:center;
+background:#1e1e2f;
+z-index:9999;
+text-align:center;
 }
-
-#splashText {
-  font-size:22px;
-  max-width:300px;
-}
+#splashText{font-size:22px;}
 
 /* CONTAINER */
-.container {
-  max-width:420px;
-  margin:20px;
-  padding:20px;
-  border-radius:20px;
-  background:rgba(255,255,255,0.1);
-  text-align:center;
+.container{
+max-width:420px;
+margin:20px;
+padding:20px;
+border-radius:20px;
+background:rgba(255,255,255,0.1);
+text-align:center;
+backdrop-filter:blur(10px);
 }
 
 /* GALERİ */
-.gallery {
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:10px;
+.gallery{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:10px;
 }
 
-.gallery img {
-  width:100%;
-  aspect-ratio:1/1;
-  object-fit:cover;
-  border-radius:10px;
-  cursor:pointer;
-  transition:0.2s;
+.gallery img{
+width:100%;
+aspect-ratio:1/1;
+object-fit:cover;
+border-radius:12px;
+transition:.2s;
 }
-
-.gallery img:active {
-  transform:scale(0.95);
-}
+.gallery img:active{transform:scale(.95);}
 
 /* LIGHTBOX */
-#lightbox {
-  position:fixed;
-  inset:0;
-  background:black;
-  display:none;
-  justify-content:center;
-  align-items:center;
-  flex-direction:column;
+#lightbox{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,0.95);
+display:none;
+justify-content:center;
+align-items:center;
+flex-direction:column;
 }
 
-#lightbox-img {
-  width:90%;
-  transition:transform 0.3s, opacity 0.3s;
-  will-change: transform;
+#lightbox-img{
+width:90%;
+transition:transform .3s,opacity .3s;
+will-change:transform;
+border-radius:12px;
 }
 
-/* DOTS */
-#dots {
-  position:absolute;
-  bottom:20px;
-  display:flex;
-  gap:6px;
+/* DOT */
+#dots{
+position:absolute;
+bottom:20px;
+display:flex;
+gap:6px;
+}
+.dot{
+width:6px;height:6px;border-radius:50%;
+background:rgba(255,255,255,.4);
+}
+.dot.active{background:white;transform:scale(1.3);}
+
+/* FINAL TEXT */
+.final{
+margin-top:30px;
+font-size:18px;
+line-height:1.6;
 }
 
-.dot {
-  width:6px;
-  height:6px;
-  border-radius:50%;
-  background:rgba(255,255,255,0.4);
-}
-
-.dot.active {
-  background:white;
-  transform:scale(1.3);
-}
-
-/* KALP */
-@keyframes floatUp {
-  to {
-    transform:translateY(-100vh);
-    opacity:0;
-  }
+/* HEART */
+@keyframes floatUp{
+to{transform:translateY(-100vh);opacity:0;}
 }
 </style>
 
@@ -130,13 +110,29 @@ body {
 
 <body>
 
-<div id="splash">
-  <div id="splashText"></div>
-</div>
+<div id="splash"><div id="splashText"></div></div>
 
 <div class="container">
-<h1>Doğum Günü Hatırası</h1>
-<p>Benim güzel kızım.. Seni her şeyden çok seviyorum.
+<h1>Arin ❤️</h1>
+<p>Dünyanın En Güzel Kızına?</p>
+
+<div class="gallery">
+<img src="foto1.jpg" data-index="0" onclick="openImage(this)">
+<img src="foto2.jpg" data-index="1" onclick="openImage(this)">
+<img src="foto3.jpg" data-index="2" onclick="openImage(this)">
+<img src="foto4.jpg" data-index="3" onclick="openImage(this)">
+<img src="foto5.jpg" data-index="4" onclick="openImage(this)">
+<img src="foto6.jpg" data-index="5" onclick="openImage(this)">
+<img src="foto7.jpg" data-index="6" onclick="openImage(this)">
+<img src="foto8.jpg" data-index="7" onclick="openImage(this)">
+<img src="foto9.jpg" data-index="8" onclick="openImage(this)">
+<img src="foto10.jpg" data-index="9" onclick="openImage(this)">
+</div>
+
+<div class="final">
+Doğum Günü Hatırası<br><br>
+<br><br>
+Benim güzel kızım.. Seni her şeyden çok seviyorum.
 Doğum Gününe özel sonsuza kadar saklayabileceğimiz
 bir anı bırakmak istedim. 18'inci yaş günün başta sağlık
 sonrasında akademik başarı getirsin. Bir ömür mutlu ve benimle yaşarsın inşallah.
@@ -153,185 +149,135 @@ Bir gün düşersen bile seni ben kaldıracağım. Beraber düşersekte birlikte
 Biliyorum ki bu bir tesadüf değil. En zor zamanımda girdin hayatıma. Beni tekrardan hayata döndürdün. Bana sevmeyi, sevilmeyi
 öğrettin. Senden o kadar çok şey öğrendim ki... Hayatımı baştan çizdim senin sayende. Bazı şeyleri sadece kendim için değil
 bizim için çabalıyorum. İlerde daha güzel günler görmek için çabalıyorum. Seni her şeyden çok seviyorum iyi ki doğdun 
-birtanem <3</p>
-
-<div class="gallery">
-<img src="foto1.jpg" data-index="0" onclick="openImage(this)">
-<img src="foto2.jpg" data-index="1" onclick="openImage(this)">
-<img src="foto3.jpg" data-index="2" onclick="openImage(this)">
-<img src="foto4.jpg" data-index="3" onclick="openImage(this)">
-<img src="foto5.jpg" data-index="4" onclick="openImage(this)">
-<img src="foto6.jpg" data-index="5" onclick="openImage(this)">
-<img src="foto7.jpg" data-index="6" onclick="openImage(this)">
-<img src="foto8.jpg" data-index="7" onclick="openImage(this)">
-<img src="foto9.jpg" data-index="8" onclick="openImage(this)">
-<img src="foto10.jpg" data-index="9" onclick="openImage(this)">
+birtanem <3
 </div>
 
 <audio id="music" loop>
-  <source src="sarki.mp3">
+<source src="sarki.mp3">
 </audio>
 </div>
 
 <div id="lightbox">
-  <img id="lightbox-img">
-  <div id="dots"></div>
+<img id="lightbox-img">
+<div id="dots"></div>
 </div>
 
 <script>
-// yazı
-const text="Dünyanın En Güzel Kızına..";
-let i=0;
-let started=false;
+const splash=document.getElementById("splash");
+const lightbox=document.getElementById("lightbox");
+const lightboxImg=document.getElementById("lightbox-img");
+
+const text="Dünyanın En Güzel Kızına";
+let i=0,started=false;
 
 function typeWriter(){
  if(i<text.length){
   document.getElementById("splashText").innerHTML+=text.charAt(i);
-  i++;
-  setTimeout(typeWriter,50);
- }
-}
+  i++;setTimeout(typeWriter,50);
+ }}
 window.onload=typeWriter;
 
-// kalpler
+// hearts
 setInterval(()=>{
- const heart=document.createElement("div");
- heart.innerText="❤️";
- heart.style.position="absolute";
- heart.style.left=Math.random()*100+"%";
- heart.style.bottom="0";
- heart.style.fontSize="14px";
- heart.style.animation="floatUp 4s linear";
- document.getElementById("splash").appendChild(heart);
- setTimeout(()=>heart.remove(),4000);
+ let h=document.createElement("div");
+ h.innerText="❤️";
+ h.style.position="absolute";
+ h.style.left=Math.random()*100+"%";
+ h.style.bottom="0";
+ h.style.animation="floatUp 4s linear";
+ splash.appendChild(h);
+ setTimeout(()=>h.remove(),4000);
 },400);
 
-// başlat
-function startExperience(){
- if(started) return;
+// start
+function start(){
+ if(started)return;
  started=true;
 
- if(navigator.vibrate){
-  navigator.vibrate([100,50,100]);
- }
+ navigator.vibrate && navigator.vibrate([100,50,100]);
 
- const music=document.getElementById("music");
- music.volume=0;
- music.play();
-
- let vol=0;
- const fade=setInterval(()=>{
-  if(vol<1){
-   vol+=0.05;
-   music.volume=vol;
-  }else{
-   clearInterval(fade);
-  }
- },200);
-
+ let m=document.getElementById("music");
  setTimeout(()=>{
-  document.getElementById("splash").style.display="none";
+   m.volume=0;
+   m.play();
+   let v=0;
+   let f=setInterval(()=>{
+     if(v<1){v+=.05;m.volume=v;}else clearInterval(f);
+   },200);
  },1500);
+
+ setTimeout(()=>splash.style.display="none",1500);
 }
+splash.onclick=start;
 
-document.getElementById("splash").addEventListener("click",startExperience);
-
-// galeri
-let currentIndex=0;
-let startX=0;
-let isDragging=false;
-let currentTranslate=0;
-
+// gallery
+let currentIndex=0,startX=0,isDragging=false,translate=0;
 const images=[
 "foto1.jpg","foto2.jpg","foto3.jpg","foto4.jpg","foto5.jpg",
 "foto6.jpg","foto7.jpg","foto8.jpg","foto9.jpg","foto10.jpg"
 ];
 
 // dots
-const dotsContainer=document.getElementById("dots");
-images.forEach(()=>{
- const d=document.createElement("div");
- d.className="dot";
- dotsContainer.appendChild(d);
-});
+const dots=document.getElementById("dots");
+images.forEach(()=>{let d=document.createElement("div");d.className="dot";dots.appendChild(d);});
 
 function updateDots(){
- document.querySelectorAll(".dot").forEach((d,i)=>{
-  d.classList.toggle("active",i===currentIndex);
- });
+ document.querySelectorAll(".dot").forEach((d,i)=>d.classList.toggle("active",i===currentIndex));
 }
 
 function openImage(el){
- if(navigator.vibrate) navigator.vibrate(30);
-
+ navigator.vibrate && navigator.vibrate(30);
  currentIndex=parseInt(el.dataset.index);
- document.getElementById("lightbox").style.display="flex";
- document.getElementById("lightbox-img").src=images[currentIndex];
+ lightbox.style.display="flex";
+ lightboxImg.src=images[currentIndex];
  updateDots();
 }
 
-function closeImage(){
- document.getElementById("lightbox").style.display="none";
-}
+lightbox.onclick=()=>lightbox.style.display="none";
 
-document.getElementById("lightbox").addEventListener("click",closeImage);
-
-// swipe animasyonlu
-const lightbox=document.getElementById("lightbox");
-const img=document.getElementById("lightbox-img");
-
+// swipe
 lightbox.addEventListener("touchstart",e=>{
  startX=e.touches[0].clientX;
  isDragging=true;
 });
 
 lightbox.addEventListener("touchmove",e=>{
- if(!isDragging) return;
-
- let moveX=e.touches[0].clientX;
- let diff=moveX-startX;
-
- currentTranslate=diff;
- img.style.transition="none";
- img.style.transform=`translateX(${diff}px) scale(0.98)`;
+ if(!isDragging)return;
+ let diff=e.touches[0].clientX-startX;
+ translate=diff;
+ lightboxImg.style.transition="none";
+ lightboxImg.style.transform=`translateX(${diff}px) scale(.98)`;
 });
 
 lightbox.addEventListener("touchend",()=>{
  isDragging=false;
 
- let diff=currentTranslate;
-
- img.style.transition="transform 0.4s ease, opacity 0.3s";
+ let diff=translate;
+ lightboxImg.style.transition="transform .4s ease,opacity .3s";
 
  if(Math.abs(diff)>80){
   if(diff<0){
    currentIndex=(currentIndex+1)%images.length;
-   img.style.transform="translateX(-100%) scale(0.95)";
+   lightboxImg.style.transform="translateX(-100%) scale(.95)";
   }else{
    currentIndex=(currentIndex-1+images.length)%images.length;
-   img.style.transform="translateX(100%) scale(0.95)";
+   lightboxImg.style.transform="translateX(100%) scale(.95)";
   }
 
   setTimeout(()=>{
-   img.src=images[currentIndex];
-   img.style.transition="none";
-   img.style.transform="translateX(0) scale(1)";
+   lightboxImg.src=images[currentIndex];
+   lightboxImg.style.transition="none";
+   lightboxImg.style.transform="translateX(0)";
    updateDots();
   },200);
 
-  if(navigator.vibrate) navigator.vibrate(20);
-
+  navigator.vibrate && navigator.vibrate(20);
  }else{
-  img.style.transform="translateX(0) scale(1)";
+  lightboxImg.style.transform="translateX(0)";
  }
 
- currentTranslate=0;
+ translate=0;
 });
-
-// service worker
-if('serviceWorker' in navigator){
- navigator.serviceWorker.register('sw.js?v=20');
-}
 </script>
 
 </body>
