@@ -8,6 +8,10 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:ital@1&display=swap" rel="stylesheet">
 
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#ff6b81">
+<link rel="apple-touch-icon" href="icon.png">
+
 <style>
 *{-webkit-tap-highlight-color:transparent;}
 html{scroll-behavior:smooth;}
@@ -32,8 +36,13 @@ align-items:center;
 background:#1e1e2f;
 z-index:9999;
 text-align:center;
+padding:20px;
 }
-#splashText{font-size:22px;}
+
+#splashText{
+font-size:22px;
+max-width:300px;
+}
 
 /* CONTAINER */
 .container{
@@ -52,11 +61,13 @@ display:grid;
 grid-template-columns:repeat(2,1fr);
 gap:10px;
 }
+
 .gallery img{
 width:100%;
 aspect-ratio:1/1;
 object-fit:cover;
 border-radius:12px;
+cursor:pointer;
 transition:.2s;
 }
 .gallery img:active{transform:scale(.95);}
@@ -71,9 +82,11 @@ justify-content:center;
 align-items:center;
 flex-direction:column;
 }
+
 #lightbox-img{
 width:90%;
-transition:transform .3s;
+transition:transform .3s,opacity .3s;
+will-change:transform;
 border-radius:12px;
 }
 
@@ -97,26 +110,7 @@ transform:scale(1.3);
 .final{
 margin-top:30px;
 font-size:18px;
-line-height:1.8;
-text-align:center;
-max-width:320px;
-margin-left:auto;
-margin-right:auto;
-padding:18px;
-background:rgba(255,255,255,0.06);
-border-radius:14px;
-backdrop-filter:blur(6px);
-animation:fadeUp 1s ease;
-}
-.final p{margin:10px 0;}
-.final p:nth-child(2){
-font-size:20px;
-font-weight:500;
-}
-
-@keyframes fadeUp{
-from{opacity:0;transform:translateY(20px);}
-to{opacity:1;transform:translateY(0);}
+line-height:1.6;
 }
 
 /* HEART */
@@ -133,7 +127,7 @@ to{transform:translateY(-100vh);opacity:0;}
 
 <div class="container">
 <h1>Doğum Günü Hatırası</h1>
-
+  
 <div class="gallery">
 <img src="foto1.jpg" data-index="0" onclick="openImage(this)">
 <img src="foto2.jpg" data-index="1" onclick="openImage(this)">
@@ -147,11 +141,9 @@ to{transform:translateY(-100vh);opacity:0;}
 <img src="foto10.jpg" data-index="9" onclick="openImage(this)">
 </div>
 
-<!-- SİMETRİK YAZI -->
-
 <div class="final">
-  <p>İyi ki hayatıma girdin…</p>
-  <p>Benim güzel kızım.. Seni her şeyden çok seviyorum.
+Doğum Günün Kutlu Olsun Birtanem<br><br>
+Benim güzel kızım.. Seni her şeyden çok seviyorum.
 Doğum Gününe özel sonsuza kadar saklayabileceğimiz
 bir anı bırakmak istedim. 18'inci yaş günün başta sağlık
 sonrasında akademik başarı getirsin. Bir ömür mutlu ve benimle yaşarsın inşallah.
@@ -168,7 +160,7 @@ Bir gün düşersen bile seni ben kaldıracağım. Beraber düşersekte birlikte
 Biliyorum ki bu bir tesadüf değil. En zor zamanımda girdin hayatıma. Beni tekrardan hayata döndürdün. Bana sevmeyi, sevilmeyi
 öğrettin. Senden o kadar çok şey öğrendim ki... Hayatımı baştan çizdim senin sayende. Bazı şeyleri sadece kendim için değil
 bizim için çabalıyorum. İlerde daha güzel günler görmek için çabalıyorum. Seni her şeyden çok seviyorum iyi ki doğdun 
-birtanem <3</p
+birtanem <3<br><br>
 </div>
 
 <audio id="music" loop>
@@ -187,7 +179,7 @@ const lightbox=document.getElementById("lightbox");
 const img=document.getElementById("lightbox-img");
 
 // yazı
-const text="Hazır mısın... Bu sana özel ❤️";
+const text="Dünyanın En Güzel Kızına";
 let i=0,started=false;
 
 function typeWriter(){
@@ -200,18 +192,18 @@ window.onload=typeWriter;
 
 // kalpler
 setInterval(()=>{
- let h=document.createElement("div");
- h.innerText="❤️";
- h.style.position="absolute";
- h.style.left=Math.random()*100+"%";
- h.style.bottom="0";
- h.style.animation="floatUp 4s linear";
- splash.appendChild(h);
- setTimeout(()=>h.remove(),4000);
+ const heart=document.createElement("div");
+ heart.innerText="❤️";
+ heart.style.position="absolute";
+ heart.style.left=Math.random()*100+"%";
+ heart.style.bottom="0";
+ heart.style.animation="floatUp 4s linear";
+ splash.appendChild(heart);
+ setTimeout(()=>heart.remove(),4000);
 },400);
 
 // başlat
-function start(){
+function startExperience(){
  if(started)return;
  started=true;
 
@@ -219,18 +211,27 @@ function start(){
 
  const music=document.getElementById("music");
 
+ // 🔥 gecikmeli müzik (daha sinematik)
  setTimeout(()=>{
   music.volume=0;
   music.play();
-  let v=0;
-  let f=setInterval(()=>{
-   if(v<1){v+=.05;music.volume=v;}else clearInterval(f);
+
+  let vol=0;
+  const fade=setInterval(()=>{
+   if(vol<1){
+    vol+=0.05;
+    music.volume=vol;
+   }else clearInterval(fade);
   },200);
+
  },1200);
 
- setTimeout(()=>splash.style.display="none",1500);
+ setTimeout(()=>{
+  splash.style.display="none";
+ },1500);
 }
-splash.onclick=start;
+
+splash.addEventListener("click",startExperience);
 
 // galeri
 let currentIndex=0,startX=0,isDragging=false,translate=0;
@@ -242,21 +243,28 @@ const images=[
 
 // dots
 const dots=document.getElementById("dots");
-images.forEach(()=>{let d=document.createElement("div");d.className="dot";dots.appendChild(d);});
+images.forEach(()=>{
+ const d=document.createElement("div");
+ d.className="dot";
+ dots.appendChild(d);
+});
 
 function updateDots(){
- document.querySelectorAll(".dot").forEach((d,i)=>d.classList.toggle("active",i===currentIndex));
+ document.querySelectorAll(".dot").forEach((d,i)=>{
+  d.classList.toggle("active",i===currentIndex);
+ });
 }
 
 function openImage(el){
  navigator.vibrate && navigator.vibrate(30);
+
  currentIndex=parseInt(el.dataset.index);
  lightbox.style.display="flex";
  img.src=images[currentIndex];
  updateDots();
 }
 
-lightbox.onclick=()=>lightbox.style.display="none";
+lightbox.addEventListener("click",()=>lightbox.style.display="none");
 
 // swipe
 lightbox.addEventListener("touchstart",e=>{
@@ -276,7 +284,7 @@ lightbox.addEventListener("touchend",()=>{
  isDragging=false;
 
  let diff=translate;
- img.style.transition="transform .4s ease";
+ img.style.transition="transform .4s ease,opacity .3s";
 
  if(Math.abs(diff)>80){
   if(diff<0){
@@ -301,6 +309,11 @@ lightbox.addEventListener("touchend",()=>{
 
  translate=0;
 });
+
+// service worker
+if('serviceWorker' in navigator){
+ navigator.serviceWorker.register('sw.js?v=21');
+}
 </script>
 
 </body>
